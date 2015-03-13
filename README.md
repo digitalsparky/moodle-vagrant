@@ -5,8 +5,8 @@ This is perfect for local testing and development installations.
 
 Requirements:
 
-Vagrant ( https://www.vagrantup.com/downloads.html )
-VirtualBox ( https://www.virtualbox.org/ )
+- Vagrant ( https://www.vagrantup.com/downloads.html )
+- VirtualBox ( https://www.virtualbox.org/ )
 
 Usage instructions:
 
@@ -26,8 +26,8 @@ moodle.local points to 192.168.33.10
 
 Authentication Details:
 
-username: admin
-password: Admin1!
+- username: admin
+- password: Admin1!
 
 This has been tested using Vagrant 1.7.2
 
