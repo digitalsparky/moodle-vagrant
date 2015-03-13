@@ -1,6 +1,8 @@
 # moodle-vagrant
 Moodle Vagrant installer (Ubuntu 14.04, Apache, PHP5, PostgreSQL, Latest Moodle)
 
+This is perfect for local testing and development installations.
+
 Requirements:
 
 Vagrant ( https://www.vagrantup.com/downloads.html )
