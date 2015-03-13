@@ -1,9 +1,13 @@
 # moodle-vagrant
 Moodle Vagrant installer (Ubuntu 14.04, Apache, PHP5, PostgreSQL, Latest Moodle)
 
+Requirements:
+
+Vagrant ( https://www.vagrantup.com/downloads.html )
+VirtualBox ( https://www.virtualbox.org/ )
+
 Usage instructions:
 
-- Install Vagrant from https://www.vagrantup.com/downloads.html
 - Clone moodle-vagrant:
 
 git clone https://github.com/digitalsparky/moodle-vagrant.git
