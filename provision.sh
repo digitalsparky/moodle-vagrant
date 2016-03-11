@@ -1,6 +1,7 @@
 #!/bin/bash
 export DEBIAN_FRONTEND=noninteractive
 echo "Running operating system updates..."
+sudo apt-add-repository ppa:zabuch/ppa
 apt-get update
 apt-get -y upgrade
 echo "Installing required packages..."
@@ -20,7 +21,17 @@ apt-get -y install \
 	php5-mcrypt \
 	php-pear \
 	php5-xsl \
-	git
+	git \
+	moosh \
+	mimetex \
+	texlive-base \
+	texlive-extra-utils \
+	imagemagick \
+	texi2html \
+	texinfo \
+	gnuplot \
+	clisp \
+	unzip    
 echo "Configuring Apache..."
 rm -rf /etc/apache2/sites-enabled
 rm -rf /etc/apache2/sites-available
@@ -74,20 +85,27 @@ sudo -u postgres createdb -E UTF-8 -O moodle -U postgres moodle
 echo "Creating Moodle directories..."
 mkdir -p /var/www/moodle/html
 mkdir -p /var/www/moodle/data
-mkdir -p /var/www/moodle/check
-cd /var/www/moodle/check
-echo "Retrieving latest stable Moodle version..."
-git init > /dev/null
-git remote add origin https://github.com/moodle/moodle.git
-LATEST_VERSION=$(git ls-remote --tags | awk '{print $2}' | grep -v '}$' | grep -v 'beta' | grep -v 'rc' | sed 's/refs\/tags\/v//' | sort -t. -k 1,1n -k 2,2n -k 3,3n | tail -n1)
-cd /var/www/moodle
-rm -rf /var/www/moodle/check
+echo "download and build maxima 5.36.0 source code"
+wget -q -O maxima_source.tar.gz http://sourceforge.net/projects/maxima/files/Maxima-source/5.36.0-source/maxima-5.36.0.tar.gz/download
+tar zxvf maxima_source.tar.gz
+cd maxima-5.36.0
+./configure --with-clisp
+make --silent
+make install --silent
+sudo updatedb
+echo "completed building maxima"
 cd /var/www/moodle/html
-echo "Retrieving Moodle version ${LATEST_VERSION}..."
-curl -s -o moodle.tgz "https://codeload.github.com/moodle/moodle/tar.gz/v${LATEST_VERSION}"
-tar --strip-components 1 -zxf moodle.tgz
-rm -f moodle.tgz
+echo "Retrieving latest stable Moodle version..."
+sudo git clone git://git.moodle.org/moodle.git /var/www/moodle/html
+sudo git branch --track MOODLE_29_STABLE origin/MOODLE_29_STABLE
+sudo git pull
+sudo git checkout MOODLE_29_STABLE
+git clone https://github.com/maths/moodle-qtype_stack /var/www/moodle/html/question/type/stack
+git clone https://github.com/maths/moodle-qbehaviour_adaptivemultipart /var/www/moodle/html/question/behaviour/adaptivemultipart 
+git clone https://github.com/maths/moodle-qbehaviour_dfcbmexplicitvaildate /var/www/moodle/html/question/behaviour/dfcbmexplicitvaildate
+git clone https://github.com/maths/moodle-qbehaviour_dfexplicitvaildate /var/www/moodle/html/question/behaviour/dfexplicitvaildate
 echo "Installing Moodle..."
+cd /var/www/moodle/html
 php admin/cli/install.php \
 	--lang="en" \
 	--wwwroot="http://moodle.local" \
