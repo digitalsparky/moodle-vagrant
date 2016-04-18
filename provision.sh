@@ -74,19 +74,12 @@ sudo -u postgres createdb -E UTF-8 -O moodle -U postgres moodle
 echo "Creating Moodle directories..."
 mkdir -p /var/www/moodle/html
 mkdir -p /var/www/moodle/data
-mkdir -p /var/www/moodle/check
-cd /var/www/moodle/check
-echo "Retrieving latest stable Moodle version..."
-git init > /dev/null
-git remote add origin https://github.com/moodle/moodle.git
-LATEST_VERSION=$(git ls-remote --tags | awk '{print $2}' | grep -v '}$' | grep -v 'beta' | grep -v 'rc' | sed 's/refs\/tags\/v//' | sort -t. -k 1,1n -k 2,2n -k 3,3n | tail -n1)
-cd /var/www/moodle
-rm -rf /var/www/moodle/check
 cd /var/www/moodle/html
-echo "Retrieving Moodle version ${LATEST_VERSION}..."
-curl -s -o moodle.tgz "https://codeload.github.com/moodle/moodle/tar.gz/v${LATEST_VERSION}"
-tar --strip-components 1 -zxf moodle.tgz
-rm -f moodle.tgz
+echo "Retrieving latest stable Moodle version..."
+git clone https://github.com/moodle/moodle.git .
+LATEST_VERSION=$(git tag | awk '{print $1}' | grep -v '}$' | grep -v 'beta' | grep -v 'rc' | sed 's/^v//' | sort -t. -k 1,1n -k 2,2n -k 3,3n | tail -n1)
+echo "Checking out Moodle version ${LATEST_VERSION}..."
+git checkout "tags/v${LATEST_VERSION}" -b "v${LATEST_VERSION}"
 echo "Installing Moodle..."
 php admin/cli/install.php \
 	--lang="en" \
