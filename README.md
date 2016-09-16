@@ -1,11 +1,12 @@
 # moodle-vagrant
-Moodle Vagrant installer (Ubuntu 14.04, Apache, PHP5, PostgreSQL, Latest Moodle)
+Moodle Vagrant installer (Ubuntu 16.04, Apache, PHP7, PostgreSQL, Latest Moodle)
 
 This is perfect for local testing and development installations.
 
 Requirements:
 
 - Vagrant ( https://www.vagrantup.com/downloads.html )
+- vagrant-vbguest ( https://github.com/dotless-de/vagrant-vbguest )
 - VirtualBox ( https://www.virtualbox.org/ )
 
 Usage instructions:
@@ -29,5 +30,5 @@ Authentication Details:
 - username: admin
 - password: Admin1!
 
-This has been tested using Vagrant 1.7.2
+This has been tested using Vagrant 1.8.5
 
