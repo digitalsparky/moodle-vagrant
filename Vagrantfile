@@ -2,8 +2,9 @@
 # vi: set ft=ruby :
 Vagrant.configure(2) do |config|
 	config.vm.hostname = 'moodle.local'
-	config.vm.box = "ubuntu/trusty64"
+	config.vm.box = "ubuntu/xenial64"
 	config.vm.network "private_network", ip: "192.168.33.10"
+	config.vm.synced_folder ".", "/vagrant", create: true
 	config.vm.synced_folder "./moodle/", "/var/www/moodle", create: true, owner: 'www-data', group: 'www-data'
 	config.vm.provider "virtualbox" do |vb|
 		vb.name = "moodle"

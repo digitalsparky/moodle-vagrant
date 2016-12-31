@@ -6,20 +6,22 @@ apt-get -y upgrade
 echo "Installing required packages..."
 apt-get -y install \
 	apache2 \
-	libapache2-mod-php5 \
+	libapache2-mod-php \
 	postgresql \
 	postgresql-client \
-	php5-pgsql \
-	php5-intl \
-	php5-curl \
-	php5-xmlrpc \
+	php-pgsql \
+	php-intl \
+	php-curl \
+	php-xmlrpc \
 	php-soap \
-	php5-gd \
-	php5-json \
-	php5-cli \
-	php5-mcrypt \
+	php-gd \
+	php-json \
+	php-cli \
+	php-mcrypt \
 	php-pear \
-	php5-xsl \
+	php-xsl \
+	php-zip \
+	php-mbstring \
 	git
 echo "Configuring Apache..."
 rm -rf /etc/apache2/sites-enabled
