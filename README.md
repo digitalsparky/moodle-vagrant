@@ -1,5 +1,5 @@
 # moodle-vagrant
-Moodle Vagrant installer (Ubuntu 16.04, Apache, PHP7, PostgreSQL, Latest Moodle)
+Moodle Vagrant installer (Ubuntu 18.04, Apache, PHP7, PostgreSQL, Latest Moodle)
 
 This is perfect for local testing and development installations.
 
